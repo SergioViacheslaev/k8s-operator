@@ -1,1 +1,3 @@
-spring.application.name=k8s-operator
+operator:
+    cluster: minikube
+    namespace: default
