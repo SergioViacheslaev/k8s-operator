@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title th:text="|${serviceName} environment|"></title>
+</head>
+<body>
+
+<div class="container" th:if="${errorMessage!=null}">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <td th:attr="colspan='2', align='center', style='background-color:#f05956'"
+                th:text="${errorMessage}">
+            </td>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<div th:if="${errorMessage==null}">
+    <div class="container" th:each="pod: ${serviceEnvironment.getPods()}">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td th:attr="colspan='2', align='center', style='background-color:HONEYDEW'"
+                    th:text="|Pod instance ${pod.getPodName()}|">
+                </td>
+            </tr>
+            <tr>
+                <th> Переменные окружения</th>
+                <th> Значения</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="envVar : ${pod.getEnvironmentVariables()}">
+                <td><span th:text="${envVar.name}"></span></td>
+                <td><span th:text="${envVar.value}"></span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
